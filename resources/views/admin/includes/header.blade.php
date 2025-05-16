@@ -201,6 +201,12 @@
                         </li>
                     @endcan
                     <li>
+                        <a href="{{ route('inspections.index') }}">
+                            <i class="ri-shopping-cart-2-line"></i>
+                            <span>Yoxlama</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('orders.index') }}">
                             <i class="ri-group-line"></i>
                             <span>Sifarişlər</span>
@@ -270,23 +276,29 @@
                         </li>
                     @endcan
                     <li>
+                        <a href="{{ route('regions.index') }}">
+                            <i class="ri-price-tag-3-line"></i>
+                            <span>Regionlar</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('cities.index') }}">
                             <i class="ri-price-tag-3-line"></i>
                             <span>Şəhərlər</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('districts.index') }}">
-                            <i class="ri-price-tag-3-line"></i>
-                            <span>Rayonlar</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('settlements.index') }}">
-                            <i class="ri-price-tag-3-line"></i>
-                            <span>Qəsəbələr</span>
-                        </a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="{{ route('districts.index') }}">--}}
+{{--                            <i class="ri-price-tag-3-line"></i>--}}
+{{--                            <span>Rayonlar</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li>--}}
+{{--                        <a href="{{ route('settlements.index') }}">--}}
+{{--                            <i class="ri-price-tag-3-line"></i>--}}
+{{--                            <span>Qəsəbələr</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <!-- Filters -->
                     @can('list-filters')
                         <li>
@@ -427,29 +439,29 @@
                     @endcan
 
                     <!-- Deliveries -->
-                    @can('list-deliveries')
-                        <li>
-                            <a href="{{ route('deliveries.index') }}">
-                                <i class="ri-truck-line"></i>
-                                <span>Çatdırılma haqqında məlumat</span>
-                            </a>
-                        </li>
-                    @endcan
+{{--                    @can('list-deliveries')--}}
+{{--                        <li>--}}
+{{--                            <a href="{{ route('deliveries.index') }}">--}}
+{{--                                <i class="ri-truck-line"></i>--}}
+{{--                                <span>Çatdırılma haqqında məlumat</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    @endcan--}}
                     <!-- Rules -->
                     @can('list-rules')
                         <li>
                             <a href="{{ route('rules.index') }}">
                                 <i class="ri-file-list-line"></i>
-                                <span>Məxfilik siyasəti</span>
+                                <span>Səhifələr</span>
                             </a>
                         </li>
                     @endcan
-                    <li>
-                        <a href="{{ route('refunds.index') }}">
-                            <i class="ri-file-list-line"></i>
-                            <span>Qaytarma şərtləri</span>
-                        </a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="{{ route('refunds.index') }}">--}}
+{{--                            <i class="ri-file-list-line"></i>--}}
+{{--                            <span>Qaytarma şərtləri</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <!-- Socials -->
                     @can('list-socials')
@@ -558,6 +570,24 @@
                         <a href="{{ route('subscriptions.index') }}">
                             <i class="ri-contacts-line"></i>
                             <span>Abunələr</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('reports.index') }}">
+                            <i class="ri-contacts-line"></i>
+                            <span>Hesabatlıq</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('translations.index') }}">
+                            <i class="ri-contacts-line"></i>
+                            <span>Mobildə  (mobilde)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('on_boardings.index') }}">
+                            <i class="ri-contacts-line"></i>
+                            <span>On boarding (mobil app)</span>
                         </a>
                     </li>
                 </ul>

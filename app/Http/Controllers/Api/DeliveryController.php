@@ -12,27 +12,18 @@ use Illuminate\Http\Request;
 class DeliveryController extends Controller
 {
 
-    // Çatdırılma şərtləri
-    public function index()
+    public function pages()
     {
-        $delivery = Delivery::active()->first();
-        return response()->json(new RuleResource($delivery));
-    }
+        $pages = Rule::active()->get();
 
+        $result = [];
 
-    // Məxfilik siyasəti
-    public function rule()
-    {
-        $delivery = Rule::active()->first();
-        return response()->json(new RuleResource($delivery));
-    }
+        foreach ($pages as $page) {
+            $key = 'page_' . $page->id;
+            $result[$key] = new RuleResource($page);
+        }
 
-
-    // Qaytarılma şərtləri
-    public function refund()
-    {
-        $delivery = Refund::active()->first();
-        return response()->json(new RuleResource($delivery));
+        return response()->json($result);
     }
 
 }

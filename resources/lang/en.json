@@ -1,0 +1,231 @@
+{
+    "auth": {
+        "welcome": {
+            "title": "Welcome to Brendoo!",
+            "subtitle": "Log in or sign up to start shopping.",
+            "login": "Log In",
+            "register": "Register",
+            "guest": "Continue as Guest"
+        },
+        "login": {
+            "title": "Log In",
+            "email": "Email",
+            "password": "Password",
+            "forgot": "Forgot Password",
+            "button": "Log In",
+            "or": "Or",
+            "google": "Continue with Google",
+            "logging": "Logging in...",
+            "error": "Error"
+        },
+        "register": {
+            "title": "Register",
+            "full_name": "Full Name",
+            "phone": "+7 000 00 00 00",
+            "email": "Email",
+            "password": "Password",
+            "button": "Register",
+            "or": "Or",
+            "google": "Continue with Google",
+            "terms": "By registering, you accept Brendoo’s Terms and Conditions.",
+            "error": "Error",
+            "man": "Male",
+            "woman": "Female",
+            "gender": "Gender"
+        },
+        "verify_email": {
+            "title": "Verify Your Email!",
+            "subtitle": "We sent a 6-digit verification code to your email. Enter the code to verify your email.",
+            "code": "6-digit code",
+            "button": "Verify",
+            "button_loading": "Loading...",
+            "send_again": "Resend Code",
+            "error": "Error"
+        },
+        "forget_password": {
+            "title": "Forgot Password?",
+            "subtitle": "Enter your email to recover your password.",
+            "email": "Email",
+            "button": "Send"
+        },
+        "onboarding": {
+            "skip": "Skip"
+        }
+    },
+    "cart": {
+        "cart": {
+            "title": "My Cart",
+            "discount_code": "Do you have a discount code?",
+            "code": "Code",
+            "apply": "Apply",
+            "delivery": "Delivery",
+            "free": "Free",
+            "subtotal": "Subtotal:",
+            "to_payment": "Proceed to Payment"
+        },
+        "success": {
+            "success_order": "YOUR ORDER HAS BEEN SUCCESSFULLY PLACED!",
+            "description": "You can track your order in the 'My Orders' section in your profile.",
+            "roger_roger": "Got it"
+        },
+        "confirm": {
+            "title": "Confirm Cart",
+            "my_info": "My Information",
+            "full_name": "Full Name",
+            "telephone": "+7 000 000 00 00",
+            "email": "Email",
+            "delivery_address": "Delivery Address",
+            "add_address": "Add Address",
+            "add_new_address": "Add New Address",
+            "form_of_payment": "Payment Method",
+            "cash": "Cash Payment",
+            "card": "Online Payment by Debit Card",
+            "other_card": "Other Card",
+            "discount": "Discount",
+            "delivery": "Delivery",
+            "subtotal": "Subtotal",
+            "finish": "Complete Order",
+            "address": "Address",
+            "additional_info": "Additional Information",
+            "payment_method": "Payment Method"
+        },
+        "orders": {
+            "title": "My Orders",
+            "ordered": "order placed",
+            "order_number": "Order Number",
+            "sum": "Total"
+        },
+        "order_details": {
+            "order_number": "Order Number",
+            "can_cancel": "You can cancel the order until your items start being prepared!",
+            "product": "product",
+            "product_code": "Product Code",
+            "size": "Size",
+            "color": "Color",
+            "delivery_to_address": "Delivery Address",
+            "will_be_delivered": "will be delivered",
+            "follow_order": "Track Order",
+            "delivery_address": "Delivery Address",
+            "change_address": "Change Address",
+            "can_change_address": "You can change the address until the order is handed over to the courier",
+            "payment_method": "Payment Method",
+            "card": "Card Payment",
+            "cash": "Cash Payment",
+            "sum": "Total",
+            "delivery": "Delivery",
+            "total_price": "Total Price",
+            "cancel_order": "Cancel Order",
+            "cancellation": "Order Cancellation!",
+            "cancellation_reason": "Select the reason for cancelling the order.",
+            "select_reason": "Select a reason",
+            "order_cancelled": "Your order has been successfully cancelled!",
+            "order_cancelled_description": "Your payment will be refunded to your card by the bank within 5 days.",
+            "copied_to_clipboard": "Copied to clipboard"
+        },
+        "order_status": {
+            "ordered": "Order Placed",
+            "ordered_description": "Your order has been registered",
+            "prepared": "Preparing",
+            "prepared_description": "Your order will be handed over to the courier soon.",
+            "delivered_to_courier": "Handed Over to Courier",
+            "delivered_to_courier_description": "Your order will reach you soon.",
+            "delivered": "Delivered",
+            "delivered_description": "Your order has been successfully delivered.",
+            "cancelled": "Cancelled",
+            "cancelled_description": "Your order has been cancelled."
+        }
+    },
+    "home": {
+        "tabBar": {
+            "home": "Home",
+            "categories": "Categories",
+            "favorites": "Favorites",
+            "cart": "My Cart",
+            "profile": "Profile"
+        },
+        "home": {
+            "welcome": "Welcome",
+            "welcomeUser": "Welcome!",
+            "search": "Search",
+            "most_sold": "Best Sellers",
+            "all": "All",
+            "discounted": "Discounted Products",
+            "cosmetics": "Cosmetics",
+            "clothes": "Clothing",
+            "bannerTitle": "Don't Miss the Sale!",
+            "bannerSubtitle": "Up to 30% off on clothing.",
+            "bannerButton": "Shop Now",
+            "bannerTag": "30%",
+            "products": "Products",
+            "electronics": "Electronics"
+        },
+        "products": {
+            "title": "Products",
+            "search": "Search"
+        },
+        "productDetails": {
+            "inStock": "In Stock",
+            "outOfStock": "Out of Stock",
+            "comment": "review",
+            "comments": "Reviews",
+            "offered": "Offered",
+            "addToCart": "Add to Cart",
+            "success": "Operation completed successfully"
+        },
+        "favorites": {
+            "outOfStock": "Out of Stock"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "delete": "Delete",
+            "readAll": "Mark All as Read"
+        },
+        "filter": {
+            "title": "Filter",
+            "clean": "Clear",
+            "category": "Category",
+            "gender": "Gender",
+            "color": "Color",
+            "size": "Size",
+            "price": "Price",
+            "brands": "Brands",
+            "discount_products": "Discounted Products",
+            "show_results": "Show Results",
+            "select_all": "Select All"
+        }
+    },
+    "profile": {
+        "profile": {
+            "personal_information": "My Personal Information",
+            "orders": "My Orders",
+            "addresses": "My Addresses",
+            "payment_information": "My Payment Information",
+            "faq": "Frequently Asked Questions",
+            "support": "Support",
+            "exit": "Logout",
+            "not_logged_in": "To access the profile page, please register or log in!",
+            "login": "Log In",
+            "register": "Register"
+        },
+        "orders": {
+            "title": "My Orders"
+        },
+        "addresses": {
+            "title": "My Addresses",
+            "add_new_address": "Add New Address",
+            "add_address": "Add Address"
+        },
+        "support": {
+            "contact_us": "Contact Us"
+        },
+        "order_details": {
+            "title": "Order Details"
+        },
+        "changeAddress": {
+            "title": "Change Address"
+        },
+        "order_tracking": {
+            "title": "Order Status"
+        }
+    }
+}

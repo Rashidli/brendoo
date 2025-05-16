@@ -17,11 +17,20 @@
                         <div class="card-body">
                             <form method="GET" action="{{ route('packages.index') }}">
                                 <div class="row g-3">
-
+                                    <div class="col-md-3">
+                                        <label class="form-label">Müştəri id</label>
+                                        <input type="text" name="customer_id" class="form-control"
+                                               value="{{ request('customer_id') }}">
+                                    </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Barkod</label>
                                         <input type="text" name="barcode" class="form-control"
                                                value="{{ request('barcode') }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">TR Barkod</label>
+                                        <input type="text" name="tr_barcode" class="form-control"
+                                               value="{{ request('tr_barcode') }}">
                                     </div>
 
                                     <div class="col-md-3">
@@ -75,6 +84,7 @@
                                         <th>Məhsullar</th>
                                         <th>Waybill</th>
                                         <th>Yaradılma</th>
+                                        <th>Topdelivery</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -92,6 +102,7 @@
                                             <td>
                                                 @foreach($package->orderItems as $orderItem)
                                                     <span class="badge bg-light text-dark">
+                                                        M.id :{{$orderItem->customer?->id}}
                                                         {{ $orderItem->product?->title ?? 'Məhsul tapılmadı' }}
                                                     </span><br>
                                                 @endforeach
@@ -107,6 +118,18 @@
                                                 @endif
                                             </td>
                                             <td>{{ $package->created_at->format('d/m/Y H:i') }}</td>
+                                            <td>
+                                                <form action="{{route('check.status.topdelivery')}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="top_delivery_order_id" value="{{$package->top_delivery_order_id}}">
+                                                    <input type="hidden" name="barcode" value="{{$package->barcode}}">
+                                                    <input type="hidden" name="webshop_number" value="{{$package->webshop_number}}">
+                                                    {{$package->top_delivery_order_id}}<br>
+                                                    {{$package->barcode}}<br>
+                                                    {{$package->webshop_number}}<br>
+                                                    <button type="submit">Yoxla</button>
+                                                </form>
+                                            </td>
 
                                         </tr>
                                     @endforeach

@@ -16,23 +16,31 @@
                             <!-- Axtarış Formu -->
                             <form method="GET" action="{{ route('admin.logs.index') }}">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <input type="text" name="log_name" class="form-control"
                                                placeholder="Log adı üzrə axtar" value="{{ request('log_name') }}">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <input type="text" name="event" class="form-control"
                                                placeholder="Hadisə növü üzrə axtar" value="{{ request('event') }}">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <input type="text" name="causer_id" class="form-control"
                                                placeholder="User ID üzrə axtar" value="{{ request('causer_id') }}">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <input type="text" name="subject_type" class="form-control"
                                                placeholder="Model tipi üzrə axtar" value="{{ request('subject_type') }}">
                                     </div>
-                                    <div class="col-md-3 mt-2">
+                                    <div class="col-md-2">
+                                        <input type="date" name="start_date" class="form-control"
+                                               placeholder="" value="{{ request('start_date') }}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="date" name="end_date" class="form-control"
+                                               placeholder="Model tipi üzrə axtar" value="{{ request('end_date') }}">
+                                    </div>
+                                    <div class="col-md-2 mt-2">
                                         <button type="submit" class="btn btn-primary">Axtar</button>
                                         <a href="{{ route('admin.logs.index') }}" class="btn btn-secondary">Sıfırla</a>
                                     </div>

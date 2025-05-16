@@ -1,47 +1,115 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
-class ProductService {
-    public function filterProducts(Request $request): Builder
+class ProductService
+{
+    protected Builder $query;
+
+    public function __construct()
     {
+        $this->query = Product::query()->with('filters.options');
+    }
 
-        $query = Product::query();
-
-        if ($request->filled('title')) {
-            $query->whereHas('translation', function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->title . '%');
-            });
+    public function filterTitle(?string $title): self
+    {
+        if ($title) {
+            $this->query->whereHas(
+                'translation',
+                fn ($q) => $q->where('title', 'like', "%{$title}%")
+            );
         }
 
-        if ($request->filled('code')) {
-            $query->where('code', 'like', '%' . $request->code . '%');
+        return $this;
+    }
+
+    public function filterCode(?string $code): self
+    {
+        if ($code) {
+            $this->query->where('code', 'like', "%{$code}%");
         }
 
-        if ($request->filled('is_active')) {
-            $query->where('is_active', $request->boolean('is_active'));
+        return $this;
+    }
+
+    public function filterIsActive(?bool $isActive): self
+    {
+        if (null !== $isActive) {
+            $this->query->where('is_active', $isActive);
         }
 
-        if ($request->filled('stock')) {
-            $query->where('stock', '<', 5);
+        return $this;
+    }
+
+    public function filterLowStock(?bool $enabled): self
+    {
+        if ($enabled) {
+            $this->query->where('stock', '<', 5);
         }
 
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
+        return $this;
+    }
+
+    public function filterCategory(?int $categoryId): self
+    {
+        if ($categoryId) {
+            $this->query->where('category_id', $categoryId);
         }
 
-        if ($request->filled('brand')) {
-            $query->where('brand_id', $request->brand);
+        return $this;
+    }
+
+    public function filterSubcategory(?int $subcategoryId): self
+    {
+        if ($subcategoryId) {
+            $this->query->where('sub_category_id', $subcategoryId);
         }
 
-        if ($request->filled('subcategory')) {
-            $query->where('sub_category_id', $request->subcategory);
+        return $this;
+    }
+
+    public function filterBrand(?int $brandId): self
+    {
+        if ($brandId) {
+            $this->query->where('brand_id', $brandId);
         }
 
-        return $query;
+        return $this;
+    }
 
+    public function filterUser(?int $userId): self
+    {
+        if ($userId) {
+            $this->query->where('user_id', $userId);
+        }
+
+        return $this;
+    }
+
+    public function filterStartDate(?string $startDate): self
+    {
+        if ($startDate) {
+            $this->query->where('activation_date', '>=', $startDate . ' 00:00:00');
+        }
+
+        return $this;
+    }
+
+    public function filterEndDate(?string $endDate): self
+    {
+        if ($endDate) {
+            $this->query->where('activation_date', '<=', $endDate . ' 23:59:59');
+        }
+
+        return $this;
+    }
+
+
+    public function getQuery(): Builder
+    {
+        return $this->query;
     }
 }

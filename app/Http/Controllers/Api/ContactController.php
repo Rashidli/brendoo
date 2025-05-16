@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
-use App\Mail\PasswordResetMail;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,7 +35,7 @@ class ContactController extends Controller
 
         $data = $request->only(['name', 'surname', 'email', 'phone', 'category', 'message']);
 
-        Mail::to('info@brendoo.com')->queue(new ContactMail($data));
+        Mail::to('info@brendoo.com')->send(new ContactMail($data));
 
         return response()->json(['message' => 'Successfully added']);
     }

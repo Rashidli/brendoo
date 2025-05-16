@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
 
-    use HasFactory, Translatable, SoftDeletes,LogsActivityTrait;
+    use HasFactory, Translatable, SoftDeletes, LogsActivityTrait;
 
     public $translatedAttributes = [
         'title',

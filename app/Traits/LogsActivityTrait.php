@@ -4,26 +4,26 @@ namespace App\Traits;
 
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Auth;
 
 trait LogsActivityTrait
 {
-
     use LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {
-        $fillable = $this->getFillable();
-
-//        $translationFields = (new ($this->translations()->getRelated()))->getFillable();
-//        $translationFields = array_map(fn ($field) => 'translations.'.$field, $translationFields);
-//        dd($translationFields);
-//        $fillable = array_merge($fillable, $translationFields);
-
         return LogOptions::defaults()
-            ->logOnly($fillable)
+            ->logOnly($this->getFillable())
             ->useLogName(class_basename($this))
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
 
+    public function shouldLog(): bool
+    {
+        if (Auth::guard('service')->check()) {
+            return true;
+        }
+        return Auth::check();
+    }
 }

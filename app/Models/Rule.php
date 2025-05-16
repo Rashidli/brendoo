@@ -12,7 +12,7 @@ class Rule extends Model
 {
 
     use HasFactory, Translatable, SoftDeletes,LogsActivityTrait;
-    public $translatedAttributes = ['title','description'];
+    public $translatedAttributes = ['title','description','slug'];
     protected $fillable = ['is_active'];
 
     public function scopeActive($query)

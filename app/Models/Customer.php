@@ -27,6 +27,7 @@ class Customer extends Model
         'email',
         'is_active',
         'is_blocked',
+        'birthday',
         'password',
         'phone',
         'gender',

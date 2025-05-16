@@ -25,12 +25,14 @@ use App\Http\Controllers\Admin\FavoriteController;
 use App\Http\Controllers\Admin\FilterController;
 use App\Http\Controllers\Admin\HolidayBannerController;
 use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\InspectionController;
 use App\Http\Controllers\Admin\InstagramController;
 use App\Http\Controllers\Admin\LoginBannerController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OfficeController;
+use App\Http\Controllers\Admin\OnBoardingController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PackageController;
@@ -40,7 +42,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductMainController;
 use App\Http\Controllers\Admin\ReasonController;
 use App\Http\Controllers\Admin\RefundController;
+use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\RegisterImageController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ReturnProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RuleController;
@@ -56,6 +60,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\ThirdCategoryController;
 use App\Http\Controllers\Admin\TiktokController;
 use App\Http\Controllers\Admin\TopLineController;
+use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WordController;
 use Illuminate\Support\Facades\Mail;
@@ -82,6 +87,8 @@ Route::get('/', function () {
 //    return \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 //});
 
+Route::get('test',[BlogController::class,'test']);
+
 Route::get('/test-mail', function () {
     try {
         Mail::raw('Test email', function ($message) {
@@ -98,12 +105,14 @@ Route::get('/', [PageController::class,'login'])->name('login');
 //Route::get('/register', [PageController::class,'register'])->name('register');
 Route::post('/login_submit',[AuthController::class,'login_submit'])->name('login_submit');
 //Route::post('/register_submit',[AuthController::class,'register_submit'])->name('register_submit');
-
+Route::get('importjson',[TranslationController::class,'importTranslations']);
 Route::group(['middleware' =>'auth'], function (){
 
     Route::get('/home', [PageController::class,'home'])->name('home');
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
     Route::resource('users',UserController::class);
+    Route::resource('on_boardings',OnBoardingController::class);
+    Route::resource('translations',TranslationController::class);
     Route::resource('roles',RoleController::class);
     Route::resource('permissions',PermissionController::class);
     Route::get('/admin/check-barcode', [PackageController::class, 'checkBarcode']);
@@ -112,6 +121,7 @@ Route::group(['middleware' =>'auth'], function (){
     Route::get('/logs', [ActivityLogController::class, 'index'])->name('admin.logs.index');
     Route::post('/products/upload-excel', [ProductController::class, 'uploadExcel'])->name('products.uploadExcel');
     Route::post('import',[ProductController::class,'import'])->name('xml.import');
+    Route::post('zara-import',[ProductController::class,'zaraImport'])->name('zara.import');
     Route::post('increase-prices',[ProductController::class,'increasePrices'])->name('increase-prices');
 
     Route::get('index/{id}',[NoticeController::class, 'index'])->name('notices.index');
@@ -120,6 +130,8 @@ Route::group(['middleware' =>'auth'], function (){
     Route::post('/packages/boxify', [PackageController::class, 'boxify'])->name('packages.boxify');
 
     Route::resource('boxes', BoxController::class);
+    Route::post('admin/boxes/bulk-status-update', [BoxController::class, 'bulkStatusUpdate'])->name('boxes.bulk-status-update');
+
 
     Route::resource('return_products',ReturnProductController::class);
     Route::post('/admin/return-products/{id}/update-status', [ReturnProductController::class, 'updateStatus']);
@@ -128,10 +140,13 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('cities',CityController::class);
     Route::resource('districts',DistrictController::class);
     Route::resource('settlements',SettlementController::class);
-
+    Route::resource('reports', ReportController::class);
+    Route::resource('regions', RegionController::class);
+    Route::get('get-regions', [BoxController::class, 'getRegions']);
 
     Route::resource('blogs',BlogController::class);
     Route::resource('stock_notifications',StockNotificationController::class);
+    Route::post('send_email_stock_notifications',[StockNotificationController::class,'sendEmailStockNotifications'])->name('send_email_stock_notifications');
     Route::resource('subscriptions',SubscriptionController::class);
     Route::resource('socials',SocialController::class);
     Route::resource('contact_items',ContactItemController::class);
@@ -151,6 +166,7 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('customers',CustomerController::class);
     Route::resource('filters',FilterController::class);
     Route::resource('products',ProductController::class);
+    Route::resource('inspections',InspectionController::class);
     Route::resource('mains',MainController::class);
     Route::resource('tiktoks',TiktokController::class);
     Route::resource('instagrams',InstagramController::class);
@@ -169,6 +185,7 @@ Route::group(['middleware' =>'auth'], function (){
     Route::get('favorites/{id}',[FavoriteController::class, 'index'])->name('favorites.index');
     Route::get('baskets/{id}',[BasketController::class,'index'])->name('customer_basket');
     Route::resource('orders', OrderController::class);
+    Route::post('get-status-delivery', [PackageController::class, 'getStatusDelivery'])->name('check.status.topdelivery');
     Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::put('/admin_orders/{id}/status', [OrderController::class, 'updateAdminStatus'])->name('admin_orders.updateStatus');
     Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder'])->name('orders.cancel');

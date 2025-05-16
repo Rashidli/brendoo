@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\LoginBannerController;
 use App\Http\Controllers\Api\LogoController;
 use App\Http\Controllers\Api\MainController;
 use App\Http\Controllers\Api\NoticeController;
+use App\Http\Controllers\Api\OnBoardingController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
@@ -38,6 +39,7 @@ use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\TiktokController;
 use App\Http\Controllers\Api\TopLineController;
 use App\Http\Controllers\Api\TranslateController;
+use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\Api\VirtualTryOnController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +55,7 @@ Route::post('login', [CustomerController::class,'login']);
 
 Route::post('/login/google', [CustomerController::class, 'loginGoogle']);
 Route::post('/register/google', [CustomerController::class, 'registerGoogle']);
+
 
 Route::post('/virtual-try-on', [VirtualTryOnController::class, 'submitTryOn']);
 Route::get('/virtual-try-on/{task_id}', [VirtualTryOnController::class, 'checkStatus']);
@@ -120,14 +123,21 @@ Route::group(['middleware' => 'setLocale'], function () {
         //Mənə bildir
         Route::post('notify-me', [StockNotificationController::class, 'store']);
 
-        //Şəhər rayon qəsəbə
-        Route::get('/cities', [LocationController::class, 'index']);
-        Route::get('/districts/{cityId}', [LocationController::class, 'getDistricts']);
-        Route::get('/settlements/{districtId}', [LocationController::class, 'getSettlements']);
+
+
+//        Route::get('/districts/{cityId}', [LocationController::class, 'getDistricts']);
+//        Route::get('/settlements/{districtId}', [LocationController::class, 'getSettlements']);
 
     });
+//Şəhər rayon qəsəbə
+
+    Route::get('/regions', [LocationController::class, 'getRegions']);
+    Route::get('/search', [ProductController::class, 'search']);
+    Route::get('/on-boardings', [OnBoardingController::class, 'index']);
+    Route::get('/cities/{regionId}', [LocationController::class, 'getCities']);
 
     Route::get('/translates',[TranslateController::class,'translates']);
+    Route::get('/translations', [TranslationController::class, 'index']);
     Route::get('categories', [CategoryController::class,'index']);
     Route::get('catalog_categories', [CategoryController::class,'catalog_categories']);
     Route::get('sub_categories', [CategoryController::class,'sub_categories']);
@@ -135,7 +145,7 @@ Route::group(['middleware' => 'setLocale'], function () {
     Route::get('product_hero', [ProductMainController::class,'index']);
     Route::get('hero', [MainController::class,'index']);
     Route::get('advantages', [AdvantageController::class,'index']);
-    Route::get('rule', [RuleController::class,'index']);
+//    Route::get('rule', [RuleController::class,'index']);
     Route::get('socials', [SocialController::class,'index']);
     Route::get('products', [ProductController::class,'index']);
     Route::get('reasons', [ReasonController::class,'index']);
@@ -159,13 +169,7 @@ Route::group(['middleware' => 'setLocale'], function () {
     Route::get('product/{id}', [ProductController::class,'product']);
     Route::get('registerImage', [LogoController::class,'registerImage']);
 
-    // Çatdırılma şərtləri
-    Route::get('delivery', [DeliveryController::class,'index']);
 
-    //Məxfilik siyasəti
-    Route::get('rule', [DeliveryController::class,'rule']);
-
-    // Qaytarılma şərtləri
-    Route::get('refund', [DeliveryController::class,'refund']);
+    Route::get('pages', [DeliveryController::class,'pages']);
 
 });

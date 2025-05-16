@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BasketItemResource;
 use App\Models\BasketItem;
 use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class BasketItemController extends Controller
 
         $customer = Customer::query()->findOrFail(auth()->user()->id);
         $items = $customer->basketItems()->with('product')->get();
+
         $totalPrice = $items->sum(function ($item) {
             return $item->price * $item->quantity;
         });
@@ -49,9 +51,20 @@ class BasketItemController extends Controller
 
         $customer = Customer::query()->findOrFail(auth()->user()->id);
 
+        $product = Product::findOrFail($validated['product_id']);
+
+        // Qiymət seçimi
+        $price = ($product->discount && $product->discount > 0)
+            ? $product->discounted_price
+            : $product->price;
+
+        // Basket item yaradılır və ya yenilənir
         $item = $customer->basketItems()->updateOrCreate(
-            ['product_id' => $validated['product_id']],
-            ['quantity' => $validated['quantity'], 'price' => $validated['price']]
+            ['product_id' => $product->id],
+            [
+                'quantity' => $validated['quantity'],
+                'price' => $price,
+            ]
         );
 
         $item->options()->delete();

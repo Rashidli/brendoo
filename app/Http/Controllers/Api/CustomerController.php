@@ -27,6 +27,7 @@ class CustomerController extends Controller
                 'gender' => 'required|string',
                 'email' => 'required|string|email|min:15',
                 'password' => 'required|string|min:8',
+                'birthday' => 'required|date|before:' . now()->subYears(18)->format('Y-m-d'),
             ]);
 
             if ($validator->fails()) {
@@ -66,6 +67,7 @@ class CustomerController extends Controller
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'gender' => $request->gender,
+                'birthday' => $request->birthday,
                 'password' => Hash::make($request->password),
             ]);
 

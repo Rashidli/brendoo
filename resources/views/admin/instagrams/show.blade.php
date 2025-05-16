@@ -177,7 +177,7 @@
 
                                             <tr>
                                                 <td>{{$product->code}}</td>
-                                                <td><img src="{{asset('storage/'.$product->image)}}"
+                                                <td><img src="{{$product->image}}"
                                                          style="width: 70px; height: 90px" alt=""></td>
                                                 <td>{{$product->title}}</td>
                                                 <td>{{$product->brand?->title}}</td>

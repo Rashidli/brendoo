@@ -10,8 +10,8 @@
                                 @if(session('message'))
                                     <div class="alert alert-success">{{session('message')}}</div>
                                 @endif
-                                <h4 class="card-title">Məxfilik siyasəti</h4>
-{{--                                    <a href="{{route('rules.create')}}" class="btn btn-primary">+</a>--}}
+                                <h4 class="card-title">Səhifələr</h4>
+                                    <a href="{{route('rules.create')}}" class="btn btn-primary">+</a>
                                 <br>
                                 <br>
                                 <div class="table-responsive">
@@ -35,11 +35,11 @@
                                                 <td>{{$rule->is_active ? 'Active' : 'Deactive'}}</td>
                                                 <td>
                                                     <a href="{{route('rules.edit',$rule->id)}}" class="btn btn-primary" style="margin-right: 15px" >Edit</a>
-{{--                                                    <form action="{{route('rules.destroy', $rule->id)}}" method="post" style="display: inline-block">--}}
-{{--                                                        {{ method_field('DELETE') }}--}}
-{{--                                                        @csrf--}}
-{{--                                                        <button onclick="return confirm('Məlumatın silinməyin təsdiqləyin')" type="submit" class="btn btn-danger">Delete</button>--}}
-{{--                                                    </form>--}}
+                                                    <form action="{{route('rules.destroy', $rule->id)}}" method="post" style="display: inline-block">
+                                                        {{ method_field('DELETE') }}
+                                                        @csrf
+                                                        <button onclick="return confirm('Məlumatın silinməyin təsdiqləyin')" type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
                                                 </td>
                                             </tr>
 

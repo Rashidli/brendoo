@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Imports\ProductsImport;
+use App\Jobs\ProcessProductImport;
+use App\Jobs\ZaraXmlImport;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductTranslation;
 use App\Models\SubCategory;
 use App\Models\ThirdCategory;
+use App\Models\User;
 use App\Services\ImageUploadService;
 use App\Services\PriceCalculatorService;
 use App\Services\ProductService;
@@ -50,20 +54,37 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $limit    = $request->input('limit', '15');
-        $products = $this->productService->filterProducts($request)->orderByDesc('id')->paginate($limit)->withQueryString();
+        $limit = $request->input('limit', 15);
 
-        $categories    = Category::all();
+        $products = $this->productService
+            ->filterTitle($request->title)
+            ->filterCode($request->code)
+            ->filterIsActive($request->is_active)
+            ->filterLowStock($request->stock)
+            ->filterCategory($request->category)
+            ->filterSubcategory($request->subcategory)
+            ->filterBrand($request->brand)
+            ->filterUser($request->user_id)
+            ->filterStartDate($request->start_act)
+            ->filterEndDate($request->end_act)
+            ->getQuery()
+            ->orderByDesc('id')
+            ->paginate($limit)
+            ->withQueryString();
+
+        $categories = Category::all();
         $subcategories = SubCategory::all();
-        $brands        = Brand::all();
+        $brands = Brand::all();
+        $users = User::all();
 
         return view('admin.products.index', compact(
             'products',
             'categories',
             'subcategories',
-            'brands'
+            'brands', 'users'
         ));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -352,9 +373,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
+        $product_translation = ProductTranslation::query()->where('product_id', $product->id)->first();
+        $product_translation->delete();
         $product->delete();
 
         return redirect()->route('products.index')->with('message', 'Product deleted successfully');
+
     }
 
     public function uploadExcel(Request $request)
@@ -370,78 +395,46 @@ class ProductController extends Controller
 
     public function import(Request $request)
     {
-        DB::beginTransaction();
 
-        try {
             $request->validate([
                 'xml_file' => 'required',
             ]);
 
-            $file       = $request->file('xml_file');
-            $xmlContent = file_get_contents($file);
 
-            $xml  = simplexml_load_string($xmlContent, 'SimpleXMLElement', LIBXML_NOCDATA);
-            $json = json_decode(json_encode($xml), true);
 
-            $results = $json['Product'];
+        $file = $request->file('xml_file');
+        $filePath = $file->storeAs('imports', uniqid() . '.xml'); // storage/app/imports/*.xml
+        ProcessProductImport::dispatch(
+            $filePath,
+            $request->category_id,
+            $request->sub_category_id,
+            $request->third_category_id,
+            $request->brand_id,
+            auth()->id()
+        );
 
-            foreach ($results as $product) {
-                if (Product::query()->where('listing_id', $product['id'])->exists()) {
-                    continue;
-                }
+        return redirect()->back()->with('success', 'Yükləmə başladı, məhsullar fon rejimində əlavə olunacaq.');
+    }
 
-                $images = $product['images'] ?? [];
+    public function zaraImport(Request $request)
+    {
 
-                $new_product = Product::create([
-                    'user_id'           => auth()->id(),
-                    'listing_id'        => $product['id'],
-                    'price'             => $this->calculatorService::calculate($product['price']['sellingPrice'] ?? 0),
-                    'tr_price'          => $product['price']['sellingPrice']    ?? 0,
-                    'discounted_price'  => $product['price']['discountedPrice'] ?? 0,
-                    'image'             => $product['images']['image'][0],
-                    'category_id'       => $request->category_id,
-                    'sub_category_id'   => $request->sub_category_id,
-                    'third_category_id' => $request->third_category_id,
-                    'brand_id'          => $request->brand_id,
-                    'is_active'         => false,
-                    'en'                => [
-                        'title'     => $product['name'],
-                        'img_alt'   => $product['imageAlt'] ?? '',
-                        'img_title' => $product['imageAlt'] ?? '',
-                        'slug'      => $this->generateUniqueSlug($product['name']) . '-en',
-                    ],
-                    'ru' => [
-                        'locale'    => 'ru',
-                        'title'     => $product['name'],
-                        'img_alt'   => $product['imageAlt'] ?? '',
-                        'img_title' => $product['imageAlt'] ?? '',
-                        'slug'      => $this->generateUniqueSlug($product['name']) . '-ru',
-                    ],
-                ]);
+        $request->validate([
+            'xml_file' => 'required',
+        ]);
 
-                if (is_array($images) && isset($images['image'])) {
-                    $imageList = $images['image'];
+        $file = $request->file('xml_file');
+        $filePath = $file->storeAs('imports', uniqid() . '.xml'); // storage/app/imports/*.xml
+        ZaraXmlImport::dispatch(
+            $filePath,
+            $request->category_id,
+            $request->sub_category_id,
+            $request->third_category_id,
+            $request->brand_id,
+            auth()->id()
+        );
 
-                    if (is_string($imageList)) {
-                        $imageList = [$imageList];
-                    }
-
-                    foreach ($imageList as $img) {
-                        $new_product->sliders()->create([
-                            'image' => $img,
-                        ]);
-                    }
-                }
-
-                DB::commit();
-            }
-        } catch (Exception $exception) {
-            DB::rollBack();
-
-            return $exception->getMessage();
-        }
-
-        return redirect()->back()->with('success', 'Məhsullar uğurla yükləndi.');
+        return redirect()->back()->with('success', 'Yükləmə başladı, məhsullar fon rejimində əlavə olunacaq.');
     }
 
     public function increasePrices(Request $request)

@@ -51,11 +51,14 @@
                                             <td>{{$stock_notification->option?->filter?->title}}: {{$stock_notification->option?->title}}</td>
                                             <td class="align-middle">
                                                 <div class="d-flex justify-content-center gap-2">
-                                                    <form action="#" method="post">
+                                                    <form action="{{route('send_email_stock_notifications')}}" method="post">
                                                         @csrf
-                                                        @method('PUT')
-                                                        <button class="btn {{ $stock_notification->is_accept ? 'btn-warning' : 'btn-success' }}">
-                                                            {{ $stock_notification->is_mailed ? 'Mail Göndərilib' : 'Mail göndər' }}
+                                                        <input type="hidden" name="customer_id" value="{{$stock_notification->customer_id}}">
+                                                        <input type="hidden" name="stock_notification_id" value="{{$stock_notification->id}}">
+                                                        <input type="hidden" name="option_id" value="{{$stock_notification->option_id}}">
+                                                        <input type="hidden" name="product_id" value="{{$stock_notification->product_id}}">
+                                                        <button class="btn {{ $stock_notification->notified ? 'btn-warning' : 'btn-success' }}" {{ $stock_notification->notified ? 'disabled' : '' }}>
+                                                            {{ $stock_notification->notified ? 'Mail Göndərilib' : 'Mail göndər' }}
                                                         </button>
                                                     </form>
 

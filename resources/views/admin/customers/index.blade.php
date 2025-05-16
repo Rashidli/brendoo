@@ -49,6 +49,7 @@
                                         <th>ID</th>
                                         <th>Ad</th>
                                         <th>Telefon</th>
+                                        <th>Doğum tarixi</th>
                                         <th>Email</th>
                                         <th>Cinsiyət</th>
                                         <th>Bildirişlər siyahı</th>
@@ -64,6 +65,7 @@
                                             <th scope="row">{{ $customer->id }}</th>
                                             <td>{{ $customer->name }}</td>
                                             <td>{{ $customer->phone }}</td>
+                                            <td>{{ $customer->birthday }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>
                                                 @if($customer->gender == 'man')

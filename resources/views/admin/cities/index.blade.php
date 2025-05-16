@@ -21,6 +21,8 @@
                                     <tr>
                                         <th>№</th>
                                         <th>Başlıq</th>
+                                        <th>Id</th>
+                                        <th>Region</th>
                                         <th>Əməliyyat</th>
                                     </tr>
                                     </thead>
@@ -30,7 +32,9 @@
 
                                         <tr>
                                             <th scope="row">{{$city->id}}</th>
-                                            <th scope="row">{{$city->name}}</th>
+                                            <th scope="row">{{$city->cityName}}</th>
+                                            <th scope="row">{{$city->cityId}}</th>
+                                            <th scope="row">{{$city->region?->regionName}}</th>
                                             {{--                                                <td><img src="{{asset('storage/'.$city->image)}}" style="width: 100px; height: 50px" alt=""></td>--}}
                                             <td>
                                                 <a href="{{route('cities.edit', $city->id)}}" class="btn btn-primary"

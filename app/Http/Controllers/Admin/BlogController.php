@@ -132,6 +132,7 @@ class BlogController extends Controller
 
     public function update(Request $request, Blog $blog)
     {
+
         $request->validate([
             'en_title'=>'required',
             'ru_title'=>'required',
@@ -142,6 +143,7 @@ class BlogController extends Controller
             'en_description'=>'required',
             'ru_description'=>'required',
         ]);
+
         DB::beginTransaction();
         try {
             if($request->hasFile('image')){
@@ -172,12 +174,12 @@ class BlogController extends Controller
 
             ]);
 
-
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
             return $exception->getMessage();
         }
+
         return redirect()->back()->with('message','Blog updated successfully');
 
     }
@@ -199,6 +201,27 @@ class BlogController extends Controller
         DB::table('sliders')->where('id', '=', $id)->delete();
         return redirect()->back();
 
+    }
+
+    public function test()
+    {
+        function countOperationsToNegativeOptimized($n): int {
+            $count = 0;
+
+            while ($n >= 0) {
+                $count++;
+                if ($n % 2 == 0) {
+                    $n /= 2;
+                } else {
+                    $n -= 1;
+                }
+            }
+
+            return $count;
+        }
+
+        $n = 1e18; // böyük ədəd üçün test
+        echo "Əməliyyat sayı: " . countOperationsToNegativeOptimized($n);
     }
 
 }

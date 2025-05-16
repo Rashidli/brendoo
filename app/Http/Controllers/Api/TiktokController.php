@@ -12,7 +12,7 @@ class TiktokController extends Controller
 {
     public function index() : JsonResponse
     {
-        $tiktoks = Tiktok::query()->orderByDesc('id')->get();
+        $tiktoks = Tiktok::query()->where('is_active',true)->orderByDesc('id')->get();
         return response()->json(TiktokResource::collection($tiktoks));
     }
 }

@@ -17,10 +17,9 @@ class ProductResource extends JsonResource
     {
 
         $base_url = asset('storage');
-        $totalComments = $this->comments->where('is_accept', true)->count();
+        $totalComments = $this->comments->count();
 
         $ratingsCount = $this->comments
-            ->where('is_accept', true)
             ->groupBy('star')
             ->map(fn($comments) => $comments->count())
             ->all();
@@ -37,8 +36,6 @@ class ProductResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'sub_category_id' => $this->sub_category_id,
-            'category_id' => $this->category_id,
             'title' => $this->title,
             'short_title' => $this->short_title,
             'is_new' => $this->is_new,
@@ -59,17 +56,13 @@ class ProductResource extends JsonResource
             'discount' => $this->discount,
             'discounted_price' => $this->discounted_price,
             'comments_count' => $totalComments,
-            'avg_star' => ($avg = round($this->comments()->where('is_accept', true)->avg('star'), 1)) ?: 5,
-
+            'avg_star' => (round($this->comments->avg('star'), 1)) ?: 5,
             'unit' => $this->unit,
-            'category' => new CategoryResource($this->category),
-            'sub_category' => new SubCategoryResource($this->sub_category),
             'brand' => new BrandResource($this->brand),
-//            'image' => "{$base_url}/{$this->image}",
             'image' => $this->image,
             'size_image' => "{$base_url}/{$this->size_image}",
             'sliders' => SliderResource::collection($this->sliders),
-            'comments' => CommentResource::collection($this->comments->where('is_accept', true)),
+            'comments' => CommentResource::collection($this->comments),
             'rating_summary' => $ratingPercentages,
             'filters' => $this->options
                 ->groupBy('pivot.filter_id')
@@ -82,7 +75,7 @@ class ProductResource extends JsonResource
                             return [
                                 'option_id' => $option->id,
                                 'name' => $option->title,
-                                'is_default' => $option->pivot->is_default,
+//                                'is_default' => $option->pivot->is_default,
                                 'is_stock' => $option->pivot->is_stock,
                                 'color_code' => $option->color_code,
                             ];

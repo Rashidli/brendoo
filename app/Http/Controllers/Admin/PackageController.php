@@ -26,8 +26,18 @@ class PackageController extends Controller
             $query->where('barcode', 'like', '%' . request('barcode') . '%');
         }
 
+        if (request()->filled('tr_barcode')) {
+            $query->where('tr_barcode', 'like', '%' . request('tr_barcode') . '%');
+        }
+
         if (request()->filled('start_date')) {
             $query->whereDate('created_at', '>=', request('start_date'));
+        }
+
+        if(request()->filled('customer_id')){
+            $query->whereHas('orderItems', function ($q) {
+               $q->where('customer_id', request()->customer_id);
+            });
         }
 
         if (request()->filled('end_date')) {
@@ -71,25 +81,24 @@ class PackageController extends Controller
                 'push'          => $item->quantity,
                 'declaredPrice' => $item->price,
                 'clientPrice'   => $item->price,
-                'weight'        => 100, // default weight if not set
+                'weight'        => 100,
                 'vat'           => 18,
             ])->toArray();
 
-            // Prepare customer info
             $customerInfo = [
                 'name'  => $customer ? $customer->name . ' ' . $customer->surname : 'Unknown Customer',
                 'phone' => $customer->phone ?? '0000000000',
             ];
 
-            // Generate unique order number
-            $orderNumber = 'soaptest_25';
+            $orderNumber =  uniqid();
 
             // Prepare and send order data to API
             $orderData = $deliveryService->prepareOrderData(
                 $soapItems,
                 $request->weight,
                 $customerInfo,
-                $orderNumber
+                $orderNumber,
+                $order
             );
 
             // Get barcode from API response
@@ -105,11 +114,11 @@ class PackageController extends Controller
                     'status'                => 'pending',
                     'barcode'               => $data['barcode'],
                     'top_delivery_order_id' => $data['orderId'],
+                    'webshop_number' => $orderNumber,
                 ]);
 
                 $package->orderItems()->attach($request->order_item_ids);
 
-                // Update order items status
                 foreach ($orderItems as $item) {
                     $item->update([
                         'status'       => OrderStatus::Prepared,
@@ -118,45 +127,19 @@ class PackageController extends Controller
                     $this->orderStatusService->updateStatus($item->id, OrderStatus::Prepared, AdminOrderStatus::TurkishOffice);
                 }
 
-                // Generate and store the waybill PDF
-                //                $customerName = $customer ? $customer->name . ' ' . $customer->surname : 'Musteri yoxdur.';
-                //                $pdf          = Pdf::loadView('admin.packages.waybill', [
-                //                    'barcode'                => $data['barcode'], // API'dən gələn barcode
-                //                    'customerName'           => $customerName,
-                //                    'productsWithCategories' => $productsWithCategories,
-                //                    'weight'                 => $request->weight,
-                //                    'createdAt'              => now()->format('Y-m-d H:i'),
-                //                    'itemCount'              => $orderItems->count(),
-                //                ]);
-                //
-                //                $filename = "{$data['barcode']}.pdf";
-                //                Storage::put("public/{$filename}", $pdf->output());
-                //
-                //                $package->update([
-                //                    'waybill_path' => $filename,
-                //                ]);
-
                 $reportUrl = $deliveryService->printOrderAct(
                     $data['orderId'],
                     $data['barcode'],
                     $orderNumber
                 );
-
-                // (İstəyə görə) PDF faylını sistemə yüklə və package-ə əlavə et
-//                $pdfContents = file_get_contents($reportUrl); // bu link PDF-dir
-//                Storage::put("public/waybills/{$data['barcode']}_topdelivery.pdf", $pdfContents);
-
-                // Update package with external TD waybill path
                 $package->update([
                     'topdelivery_waybill_path' => $reportUrl,
                 ]);
 
-                return redirect()->route('offices.index');
+                return redirect()->to($reportUrl);
             }
-            // Handle the case where barcode is not returned
             throw new Exception('Failed to create order or get barcode from API');
         } catch (\Exception $exception) {
-            // Log the error message
             Log::error('Error creating order: ' . $exception->getMessage());
 
             return $exception->getMessage();
@@ -207,4 +190,22 @@ class PackageController extends Controller
             'exists' => false,
         ]);
     }
+
+    public function getStatusDelivery(Request $request, TopDeliveryService $deliveryService)
+    {
+        $validatedData = $request->validate([
+            'top_delivery_order_id' => 'required|string',
+            'barcode' => 'required|string',
+            'webshop_number' => 'required|string',
+        ]);
+
+        $response = $deliveryService->getOrdersInfo([
+            'orderId' => $validatedData['top_delivery_order_id'],
+            'barcode' => $validatedData['barcode'],
+            'webshopNumber' => $validatedData['webshop_number'],
+        ]);
+
+        dd($response);
+    }
+
 }

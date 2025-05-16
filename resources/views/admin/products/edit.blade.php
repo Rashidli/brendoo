@@ -95,7 +95,7 @@
                             <ol class="breadcrumb bg-light p-3 rounded">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Siyahı</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $product->translate('en')?->title }}</li>
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{{$product->url}}">{{ $product->translate('en')?->title }}</a></li>
                             </ol>
                         </nav>
                         <!-- Language Tabs -->
@@ -247,19 +247,6 @@
                                     </select>
                                     @if($errors->first('third_category_id'))
                                         <small class="form-text text-danger">{{ $errors->first('third_category_id') }}</small>
-                                    @endif
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <label class="col-form-label">Status*</label>
-                                    <select class="form-control" name="status">
-                                        <option value="saytda" {{ old('status', $product->status) == 'saytda' ? 'selected' : '' }}>Saytda</option>
-                                        <option value="bitib" {{ old('status', $product->status) == 'bitib' ? 'selected' : '' }}>Bitib</option>
-                                        <option value="olmayacaq" {{ old('status', $product->status) == 'olmayacaq' ? 'selected' : '' }}>Olmayacaq</option>
-                                    </select>
-                                    @if($errors->first('status'))
-                                        <small class="form-text text-danger">{{ $errors->first('status') }}</small>
                                     @endif
                                 </div>
                             </div>

@@ -10,6 +10,7 @@ class ActivityLogController extends Controller
 {
     public function index(Request $request)
     {
+
         $query = Activity::query();
 
         // Filtrlər
@@ -27,6 +28,13 @@ class ActivityLogController extends Controller
 
         if ($request->filled('subject_type')) {
             $query->where('subject_type', $request->subject_type);
+        }
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $start = $request->start_date . ' 00:00:00';
+            $end = $request->end_date . ' 23:59:59';
+
+            $query->whereBetween('created_at', [$start, $end]);
         }
 
         $logs = $query->latest()->paginate(10)->withQueryString();

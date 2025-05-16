@@ -1,0 +1,231 @@
+{
+    "auth": {
+        "welcome": {
+            "title": "Добро пожаловать в Brendoo!",
+            "subtitle": "Войдите или зарегистрируйтесь, чтобы начать покупки.",
+            "login": "Войти",
+            "register": "Зарегистрироваться",
+            "guest": "Продолжить как гость"
+        },
+        "login": {
+            "title": "Войти",
+            "email": "Email",
+            "password": "Пароль",
+            "forgot": "Забыл пароль",
+            "button": "Войти",
+            "or": "Или",
+            "google": "Продолжить через Google",
+            "logging": "Вход...",
+            "error": "Ошибка"
+        },
+        "register": {
+            "title": "Регистрация",
+            "full_name": "Имя и фамилия",
+            "phone": "+7 000 00 00 00",
+            "email": "Email",
+            "password": "Пароль",
+            "button": "Зарегистрироваться",
+            "or": "Или",
+            "google": "Продолжить через Google",
+            "terms": "Регистрируясь, вы принимаете Условия и Правила Brendoo.",
+            "error": "Ошибка",
+            "man": "Мужчина",
+            "woman": "Женщина",
+            "gender": "Пол"
+        },
+        "verify_email": {
+            "title": "Подтвердите ваш email!",
+            "subtitle": "Мы отправили 6-значный код подтверждения на адрес . Введите код, чтобы подтвердить email.",
+            "code": "6-значный код",
+            "button": "Подтвердить",
+            "button_loading": "Загрузка...",
+            "send_again": "Отправить код снова",
+            "error": "Ошибка"
+        },
+        "forget_password": {
+            "title": "Забыли пароль?",
+            "subtitle": "Введите email, чтобы восстановить пароль.",
+            "email": "Email",
+            "button": "Отправить"
+        },
+        "onboarding": {
+            "skip": "Пропустить"
+        }
+    },
+    "cart": {
+        "cart": {
+            "title": "Моя корзина",
+            "discount_code": "У вас есть код скидки?",
+            "code": "Код",
+            "apply": "Применить",
+            "delivery": "Доставка",
+            "free": "Бесплатно",
+            "subtotal": "Общая сумма:",
+            "to_payment": "Перейти к оплате"
+        },
+        "success": {
+            "success_order": "ВАШ ЗАКАЗ УСПЕШНО ОФОРМЛЕН!",
+            "description": "Вы можете отслеживать ваш заказ в разделе «Мои заказы» в профиле.",
+            "roger_roger": "Понятно"
+        },
+        "confirm": {
+            "title": "Подтвердить корзину",
+            "my_info": "Мои данные",
+            "full_name": "Имя и фамилия",
+            "telephone": "+7 000 000 00 00",
+            "email": "Email",
+            "delivery_address": "Адрес доставки",
+            "add_address": "Добавить адрес",
+            "add_new_address": "Добавить новый адрес",
+            "form_of_payment": "Способ оплаты",
+            "cash": "Наличный расчет",
+            "card": "Онлайн оплата дебетовой картой",
+            "other_card": "Другая карта",
+            "discount": "Скидка",
+            "delivery": "Доставка",
+            "subtotal": "Общая сумма",
+            "finish": "Завершить заказ",
+            "address": "Адрес",
+            "additional_info": "Дополнительная информация",
+            "payment_method": "Способ оплаты"
+        },
+        "orders": {
+            "title": "Мои заказы",
+            "ordered": "заказ оформлен",
+            "order_number": "Номер заказа",
+            "sum": "Сумма"
+        },
+        "order_details": {
+            "order_number": "Номер заказа",
+            "can_cancel": "Вы можете отменить заказ, пока ваши товары не начали подготавливаться!",
+            "product": "товар",
+            "product_code": "Код товара",
+            "size": "Размер",
+            "color": "Цвет",
+            "delivery_to_address": "Доставка по адресу",
+            "will_be_delivered": "будет доставлен",
+            "follow_order": "Отследить заказ",
+            "delivery_address": "Адрес доставки",
+            "change_address": "Изменить адрес",
+            "can_change_address": "Вы можете изменить адрес, пока заказ не передан курьеру",
+            "payment_method": "Способ оплаты",
+            "card": "Оплата картой",
+            "cash": "Наличный расчет",
+            "sum": "Сумма",
+            "delivery": "Доставка",
+            "total_price": "Общая сумма",
+            "cancel_order": "Отменить заказ",
+            "cancellation": "Отмена заказа!",
+            "cancellation_reason": "Выберите причину отмены заказа.",
+            "select_reason": "Выберите причину",
+            "order_cancelled": "Ваш заказ успешно отменен!",
+            "order_cancelled_description": "Ваш платеж будет возвращен на карту банком в течение 5 дней.",
+            "copied_to_clipboard": "Скопировано в буфер обмена"
+        },
+        "order_status": {
+            "ordered": "Заказ оформлен",
+            "ordered_description": "Ваш заказ зарегистрирован",
+            "prepared": "Готовится",
+            "prepared_description": "Ваш заказ скоро будет передан курьеру.",
+            "delivered_to_courier": "Передан курьеру",
+            "delivered_to_courier_description": "Ваш заказ скоро будет у вас.",
+            "delivered": "Доставлен",
+            "delivered_description": "Ваш заказ успешно доставлен.",
+            "cancelled": "Отменен",
+            "cancelled_description": "Ваш заказ был отменен."
+        }
+    },
+    "home": {
+        "tabBar": {
+            "home": "Главная",
+            "categories": "Категории",
+            "favorites": "Избранное",
+            "cart": "Моя корзина",
+            "profile": "Профиль"
+        },
+        "home": {
+            "welcome": "Добро пожаловать",
+            "welcomeUser": "Добро пожаловать!",
+            "search": "Поиск",
+            "most_sold": "Самые продаваемые",
+            "all": "Все",
+            "discounted": "Товары со скидкой",
+            "cosmetics": "Косметика",
+            "clothes": "Одежда",
+            "bannerTitle": "Не пропусти скидку!",
+            "bannerSubtitle": "Скидки до 30% на одежду.",
+            "bannerButton": "Купить сейчас",
+            "bannerTag": "30%",
+            "products": "Товары",
+            "electronics": "Электроника"
+        },
+        "products": {
+            "title": "Товары",
+            "search": "Поиск"
+        },
+        "productDetails": {
+            "inStock": "В наличии",
+            "outOfStock": "Нет в наличии",
+            "comment": "отзыв",
+            "comments": "Отзывы",
+            "offered": "Предложено",
+            "addToCart": "Добавить в корзину",
+            "success": "Операция успешно завершена"
+        },
+        "favorites": {
+            "outOfStock": "Нет в наличии"
+        },
+        "notifications": {
+            "title": "Уведомления",
+            "delete": "Удалить",
+            "readAll": "Прочитать все"
+        },
+        "filter": {
+            "title": "Фильтр",
+            "clean": "Очистить",
+            "category": "Категория",
+            "gender": "Пол",
+            "color": "Цвет",
+            "size": "Размер",
+            "price": "Цена",
+            "brands": "Бренды",
+            "discount_products": "Товары со скидкой",
+            "show_results": "Показать результаты",
+            "select_all": "Выбрать все"
+        }
+    },
+    "profile": {
+        "profile": {
+            "personal_information": "Мои личные данные",
+            "orders": "Мои заказы",
+            "addresses": "Мои адреса",
+            "payment_information": "Мои платежные данные",
+            "faq": "Часто задаваемые вопросы",
+            "support": "Поддержка",
+            "exit": "Выход",
+            "not_logged_in": "Чтобы перейти на страницу профиля, зарегистрируйтесь или войдите!",
+            "login": "Войти",
+            "register": "Зарегистрироваться"
+        },
+        "orders": {
+            "title": "Мои заказы"
+        },
+        "addresses": {
+            "title": "Мои адреса",
+            "add_new_address": "Добавить новый адрес",
+            "add_address": "Добавить адрес"
+        },
+        "support": {
+            "contact_us": "Связаться с нами"
+        },
+        "order_details": {
+            "title": "Детали заказа"
+        },
+        "changeAddress": {
+            "title": "Изменить адрес"
+        },
+        "order_tracking": {
+            "title": "Статус заказа"
+        }
+    }
+}

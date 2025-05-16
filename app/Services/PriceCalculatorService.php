@@ -32,4 +32,20 @@ class PriceCalculatorService
 
         return round($price); // Əgər heç bir aralığa düşməsə, olduğu kimi yuvarlaqla
     }
+    public static function parsePrice(string|float|null $rawPrice): float
+    {
+        if (is_null($rawPrice)) {
+            return 0;
+        }
+
+        if (is_float($rawPrice) || is_int($rawPrice)) {
+            return (float) $rawPrice;
+        }
+
+        // "2.090,00 TL" -> "2090.00"
+        $cleaned = preg_replace('/\s*TL$/u', '', $rawPrice);
+        $cleaned = str_replace(['.', ','], ['', '.'], $cleaned);
+
+        return (float) $cleaned;
+    }
 }

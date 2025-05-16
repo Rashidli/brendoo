@@ -12,6 +12,6 @@ class RuleTranslation extends Model
     use HasFactory,LogsActivityTrait;
 
     public $timestamps = false;
-    protected $fillable = ['title','description','rule_id','locale'];
+    protected $fillable = ['title','description','rule_id','locale','slug'];
 
 }

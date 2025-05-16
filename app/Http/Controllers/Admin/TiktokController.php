@@ -44,7 +44,20 @@ class TiktokController extends Controller
         if(!$limit){
             $limit = 5;
         }
-        $products = $this->productService->filterProducts($request)->paginate($limit)->withQueryString();
+        $products  = $this->productService->filterTitle($request->title)
+            ->filterCode($request->code)
+            ->filterIsActive($request->is_active)
+            ->filterLowStock($request->stock)
+            ->filterCategory($request->category)
+            ->filterSubcategory($request->subcategory)
+            ->filterBrand($request->brand)
+            ->filterUser($request->user_id)
+            ->filterStartDate($request->start_act)
+            ->filterEndDate($request->end_act)
+            ->getQuery()
+            ->orderByDesc('id')
+            ->paginate($limit)
+            ->withQueryString();
 
         $categories = Category::all();
         $subcategories = SubCategory::all();

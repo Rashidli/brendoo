@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductTranslation extends Model
 {
-    use HasFactory,LogsActivityTrait;
+    use HasFactory, LogsActivityTrait;
 
     public $timestamps = false;
     protected $fillable = [
