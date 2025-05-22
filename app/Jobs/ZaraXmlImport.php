@@ -78,7 +78,7 @@ class ZaraXmlImport implements ShouldQueue
         $products          = $json['urun'] ?? [];
 
         foreach ($products as $product) {
-            if (Product::query()->where('listing_id', $product['id'])->exists()) {
+            if (Product::query()->where('url', $product['url'])->exists()) {
                 continue;
             }
 
