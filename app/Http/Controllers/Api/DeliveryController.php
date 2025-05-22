@@ -14,6 +14,7 @@ class DeliveryController extends Controller
 
     public function pages()
     {
+
         $pages = Rule::active()->get();
 
         $result = [];

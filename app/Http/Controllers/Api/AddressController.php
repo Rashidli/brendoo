@@ -13,11 +13,9 @@ class AddressController extends Controller
 
     public function index() : JsonResponse
     {
-
         $customer = Customer::query()->findOrFail(auth()->user()->id);
         $address = $customer->address;
         return response()->json(new AddressResource($address));
-
     }
 
     public function storeOrUpdate(Request $request) : JsonResponse
@@ -25,7 +23,9 @@ class AddressController extends Controller
 
         $request->validate([
             'address' => 'required|max:255',
-            'additional_info' => 'nullable'
+            'additional_info' => 'nullable',
+            'region_id' => 'nullable',
+            'city_id' => 'nullable',
         ]);
 
         $customer = Customer::query()->findOrFail(auth()->user()->id);
@@ -34,7 +34,9 @@ class AddressController extends Controller
             [],
             [
                 'address' => $request->address,
-                'additional_info' => $request->additional_info
+                'additional_info' => $request->additional_info,
+                'region_id' => $request->additional_info,
+                'city_id' => $request->additional_info,
             ]
         );
 

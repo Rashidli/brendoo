@@ -95,7 +95,7 @@
                             <ol class="breadcrumb bg-light p-3 rounded">
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Siyahı</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><a href="{{$product->url}}">{{ $product->translate('en')?->title }}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><a target="_blank" href="{{$product->url}}">{{ $product->translate('en')?->title }}</a></li>
                             </ol>
                         </nav>
                         <!-- Language Tabs -->
@@ -211,7 +211,6 @@
                                         <small class="form-text text-danger">{{ $errors->first('brand_id') }}</small>
                                     @endif
                                 </div>
-
 
                                 <div class="mb-3">
                                     <label class="col-form-label">Kateqoriya*</label>
@@ -340,7 +339,7 @@
                                 <div class="mb-3">
                                     <label class="col-form-label">Bədən razmerləri*</label>
                                     <input class="form-control" type="file" name="size_image">
-                                    <img src="{{ asset('storage/' . $product->size_image) }}" alt="Bədən razmerləri" class="img-thumbnail mt-2" width="150">
+                                    <img src="{{ $product->size_image }}" alt="Bədən razmerləri" class="img-thumbnail mt-2" width="150">
                                     @if($errors->first('size_image'))
                                         <small class="form-text text-danger">{{ $errors->first('size_image') }}</small>
                                     @endif

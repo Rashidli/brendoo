@@ -15,7 +15,6 @@ class HomeProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $base_url = url('/');
 
 
         return [
@@ -31,7 +30,7 @@ class HomeProductResource extends JsonResource
                 ],
             'price' => $this->price,
             'discount' => $this->discount,
-            'sliders' => SliderResource::collection($this->sliders),
+//            'sliders' => SliderResource::collection($this->sliders),
             'discounted_price' => $this->discounted_price,
             'image' =>  $this->image,
 //            'filters' => $this->options

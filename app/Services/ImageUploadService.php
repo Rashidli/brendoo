@@ -12,14 +12,10 @@ class ImageUploadService
 
     public function upload($file, bool $isProduct = false): string
     {
-
         if (in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif', 'image/webp'])) {
             $manager = new ImageManager(new Driver());
-
             $image = $manager->read($file);
-
             $image = $image->toWebp(60);
-
             $filename = Str::uuid() . '.webp';
             Storage::put('public/' . $filename, (string) $image);
         } else {
@@ -27,12 +23,11 @@ class ImageUploadService
             Storage::put('public/' . $filename, file_get_contents($file));
         }
 
-        if($isProduct){
-            return 'https://admin.brendoo.com/storage/' . $filename;
-
+        if ($isProduct) {
+            return config('app.url') . '/storage/' . $filename;
         }
 
-        return $filename;
+        return  $filename;
     }
 
 }

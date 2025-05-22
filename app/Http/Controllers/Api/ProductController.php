@@ -92,7 +92,8 @@ class ProductController extends Controller
             }
         }
 
-        $products = $query->inRandomOrder()->paginate(16);
+        $products = $query->orderByDesc('id')->paginate(16);
+
 
         return response()->json([
             'data' => HomeProductResource::collection($products),
@@ -113,11 +114,11 @@ class ProductController extends Controller
             ->join('product_translations', 'products.id', '=', 'product_translations.product_id')
             ->where('products.is_active', true)
             ->where('product_translations.locale', app()->getLocale())
-            ->select('products.id', 'product_translations.title')
+            ->select('products.id','products.price','products.image','product_translations.slug', 'product_translations.title')
             ->orderByDesc('products.id');
 
         if ($request->has('search') && $request->search !== '') {
-            $query->where('product_translations.title', 'like', $request->search . '%');
+            $query->where('product_translations.title', 'like', '%'. $request->search . '%');
         }
 
         $products = $query->paginate(20);

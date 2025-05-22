@@ -113,7 +113,7 @@ class ProductController extends Controller
             'ru_description'    => 'nullable',
             'image'             => 'required|image',
             'size_image'        => 'nullable',
-            'price'             => 'nullable|numeric',
+            'price'             => 'required|numeric',
             'cost_price'        => 'nullable|numeric',
             'stock'             => 'nullable|integer',
             'brand_id'          => 'nullable',
@@ -124,7 +124,7 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             if ($request->hasFile('image')) {
-                $filename = $this->imageUploadService->upload($request->file('image', true));
+                $filename = $this->imageUploadService->upload($request->file('image'), true);
             }
 
             if ($request->hasFile('size_image')) {

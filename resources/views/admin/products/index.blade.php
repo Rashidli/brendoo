@@ -336,16 +336,6 @@
                         </div>
 
                         <div class="col-md-2">
-                            <label class="form-label">İstifadəçi</label>
-                            <select name="user_id" class="form-select">
-                                <option value="">Hamısı</option>
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}" {{ request('user_id') == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
                             <div class="form-check pt-4">
                                 <input class="form-check-input" type="checkbox" name="stock" id="stockCheck" {{ request('stock') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="stockCheck">
@@ -402,6 +392,8 @@
                                 <th width="150">Kateqoriya</th>
                                 <th width="120">Qiymət</th>
                                 <th width="100">Status</th>
+                                <th width="100">User</th>
+                                <th width="100">Tarix</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -453,7 +445,7 @@
                                                 <span class="price-highlight">
                                                     {{ number_format($product->discounted_price, 2) }} ₼
                                                 </span>
-                                                <span class="badge bg-danger ms-1">-{{ $product->discount }}%</span>
+                                                <span class="badge bg-danger ms-1">-{{ $product->discount }} %</span>
                                             @endif
                                         </div>
                                     </td>
@@ -462,6 +454,8 @@
                                             {{ $product->is_active ? 'Aktiv' : 'Deaktiv' }}
                                         </span>
                                     </td>
+                                    <td>{{$product->user?->name}}</td>
+                                    <td>{{$product->activation_date}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
